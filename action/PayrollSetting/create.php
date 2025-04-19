@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fromDate = $_POST['fromDate'];
         $toDate = $_POST['toDate'];
         $hourPerDay = floatval($_POST['hourPerDay']);
-        $hourPerWeek = floatval($_POST['hourPerWeek']);
+        $workDay = floatval($_POST['workDay']);
         
         // Get day values (0 if unchecked, 1 if checked)
         $mon = isset($_POST['mon']) ? 1 : 0;

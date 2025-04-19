@@ -171,6 +171,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -199,6 +200,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -442,6 +444,9 @@ $(document).ready(function() {
         }
     });
 
+
+
+
     //#region Family Members Management
     let familyMembers = [];
 
@@ -541,7 +546,7 @@ $(document).ready(function() {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                familyMembers.splice(index, 1);
+                familyMembers.splice(index, 1);//index remove
                 updateFamilyMembersTable();
                 Toast.fire({
                     icon: 'success',

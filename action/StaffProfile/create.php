@@ -78,8 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Check file size (max 2MB)
-            if ($_FILES['photo']['size'] > 2 * 1024 * 1024) {
-                throw new Exception('File size exceeds 2MB limit');
+            if ($_FILES['photo']['size'] > 7 * 1024 * 1024) {
+                throw new Exception('File size exceeds 7MB limit');
             }
 
             $photoName = $empCode . '_' . time() . '.' . $fileExtension;

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fromDate = $_POST['fromDate'];
         $toDate = $_POST['toDate'];
         $hourPerDay = floatval($_POST['hour_per_day']);
-        $hourPerWeek = floatval($_POST['hour_per_week']);
+        $workDay = floatval($_POST['work_day']);
         
         // Convert checkboxes to boolean values (0 or 1)
         $mon = isset($_POST['mon']) ? 1 : 0;
@@ -32,8 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sunHours = isset($_POST['sun_hours']) ? intval($_POST['sun_hours']) : 8;
 
         // Prepare the update query
-        $sql = "UPDATE prpaypolicy SET 
-            code = ?, 
+        $sql = "UPDATE prpaypolicy SET
             description = ?, 
             fromDate = ?,
             toDate = ?,
@@ -60,8 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Prepare failed: " . $con->error);
         }
 
-        $stmt->bind_param("ssssddidiidiidiidiiii", 
-            $code, 
+        $stmt->bind_param("sssddidiidiidiidiiii", 
             $description,
             $fromDate,
             $toDate,

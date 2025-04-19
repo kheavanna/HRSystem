@@ -155,8 +155,8 @@
                                 <input type="number" class="form-control" id="hourPerDay" name="hourPerDay" required min="0" max="24" step="0.5" value="8">
                             </div>
                             <div class="col-md-6">
-                                <label for="hourPerWeek" class="form-label">Hour Per Week</label>
-                                <input type="number" class="form-control" id="hourPerWeek" name="hourPerWeek" required min="0" max="168" step="0.5" value="48">
+                                <label for="workDay" class="form-label">Work Days</label>
+                                <input type="number" class="form-control" id="workDay" name="workDay" required min="0" max="168" step="0.5" value="26">
                             </div>
                         </div>
                     </div>

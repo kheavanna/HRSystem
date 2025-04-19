@@ -11,7 +11,7 @@
     $stmt = $con->prepare("SELECT * FROM prpaypolicy WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $result = $stmt->get_result();// get result 
     $policy = $result->fetch_assoc();
 
     if (!$policy) {
@@ -45,13 +45,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 
 <div class="container-fluid mt-3">
-    <?php if (isset($_GET['error'])): ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <?php echo htmlspecialchars($_GET['error']); ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <?php endif; ?>
-
     <div class="card">
         <div class="card-header">
             <h5>Edit Pay Policy</h5>
@@ -194,8 +187,8 @@
                                 <input type="number" class="form-control" id="hourPerDay" name="hour_per_day" min="0" max="24" step="0.5" value="<?php echo htmlspecialchars($policy['hourperday']); ?>">
                             </div>
                             <div class="col-md-6">
-                                <label for="hourPerWeek" class="form-label">Hour Per Week</label>
-                                <input type="number" class="form-control" id="hourPerWeek" name="hour_per_week" min="0" max="168" step="0.5" value="<?php echo htmlspecialchars($policy['hourperweek']); ?>">
+                                <label for="workDay" class="form-label">Work Days</label>
+                                <input type="number" class="form-control" id="workDay" name="work_day" min="0" max="168" step="0.5" value="<?php echo htmlspecialchars($policy['workday']); ?>">
                             </div>
                         </div>
                     </div>
