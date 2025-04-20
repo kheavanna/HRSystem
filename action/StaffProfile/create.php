@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'startDate' => 'Start Date',
             'status' => 'Status'
         ];
+ 
 
         $missingFields = [];
         foreach ($requiredFields as $field => $label) {
