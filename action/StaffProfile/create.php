@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'position' => 'Position',
             'department' => 'Department',
             'startDate' => 'Start Date',
-            'status' => 'Status'
+            'status' => 'Status',
+            'salary' => 'Salary'
         ];
- 
 
         $missingFields = [];
         foreach ($requiredFields as $field => $label) {
@@ -45,16 +45,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $empName = trim($_POST['empName']);
         $gender = trim($_POST['gender']);
         $dob = trim($_POST['dob']);
+        $company = trim($_POST['company']);
         $position = trim($_POST['position']);
         $department = trim($_POST['department']);
         $division = isset($_POST['division']) ? trim($_POST['division']) : null;
         $startDate = trim($_POST['startDate']);
         $status = trim($_POST['status']);
+        $salary = trim($_POST['salary']);
         $lineManager = isset($_POST['lineManager']) ? trim($_POST['lineManager']) : null;
         $hod = isset($_POST['hod']) ? trim($_POST['hod']) : null;
         $contact = isset($_POST['contact']) ? trim($_POST['contact']) : null;
         $email = isset($_POST['email']) ? trim($_POST['email']) : null;
         $address = isset($_POST['address']) ? trim($_POST['address']) : null;
+        $telegram = isset($_POST['telegram']) ? trim($_POST['telegram']) : null;
+        $payParameter = isset($_POST['payParameter']) ? trim($_POST['payParameter']) : null;
 
         // Validate email if provided
         if ($email && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -111,18 +115,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Insert staff profile
         $sql = "INSERT INTO hrstaffprofile (
-            EmpCode, EmpName, Gender, Dob, Position, Department, Division,
-            StartDate, Status, LineManager, Hod, Contact, Email, Address, Photo
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            EmpCode, EmpName, Gender, Dob, Position, Department, Division, 
+            StartDate, Status, LineManager, Hod, Contact, Email, Address, Photo, Salary,
+            Telegram, PayParameter, Company
+        ) VALUES (
+            ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?
+        )";
 
         $stmt = $con->prepare($sql);
         if (!$stmt) {
             throw new Exception('Database error: ' . $con->error);
         }
 
-        $stmt->bind_param("sssssssssssssss",
+        $stmt->bind_param("sssssssssssssssdsss",
             $empCode, $empName, $gender, $dob, $position, $department, $division,
-            $startDate, $status, $lineManager, $hod, $contact, $email, $address, $photoPath
+            $startDate, $status, $lineManager, $hod, $contact, $email, $address, $photoPath, $salary,
+            $telegram, $payParameter, $company
         );
 
         if (!$stmt->execute()) {
@@ -170,6 +180,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 $familyStmt->close();
+            }
+        }
+
+        // Handle education records
+        if (isset($_POST['education'])) {
+            $educationRecords = json_decode($_POST['education'], true);
+            
+            if ($educationRecords) {
+                $educationStmt = $con->prepare("INSERT INTO hreducation (
+                    EmpCode, Institution, Degree, FieldOfStudy, StartDate, EndDate
+                ) VALUES (?, ?, ?, ?, ?, ?)");
+
+                if (!$educationStmt) {
+                    throw new Exception('Database error: ' . $con->error);
+                }
+
+                foreach ($educationRecords as $education) {
+                    if (empty($education['institution'])) {
+                        throw new Exception('Institution name is required');
+                    }
+                    if (empty($education['degree'])) {
+                        throw new Exception('Degree is required');
+                    }
+                    if (empty($education['fieldOfStudy'])) {
+                        throw new Exception('Field of study is required');
+                    }
+                    if (empty($education['startDate'])) {
+                        throw new Exception('Start date is required');
+                    }
+
+                    $educationStmt->bind_param("ssssss",
+                        $empCode,
+                        $education['institution'],
+                        $education['degree'],
+                        $education['fieldOfStudy'],
+                        $education['startDate'],
+                        $education['endDate']
+                    );
+
+                    if (!$educationStmt->execute()) {
+                        throw new Exception('Error adding education record: ' . $educationStmt->error);
+                    }
+                }
+
+                $educationStmt->close();
             }
         }
 

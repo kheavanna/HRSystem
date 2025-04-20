@@ -205,7 +205,7 @@
                             $photoPath = !empty($row['Photo']) ? "../../" . $row['Photo'] : "../../assets/images/default-profile.jpg";
                             echo "<tr>";
                             echo "<td>
-                                    <a href='edit.php?id=" . $row['EmpCode'] . "' class='btn btn-sm btn-secondary me-1'><i class='fas fa-edit'></i></a>
+                                    <a href='edit.php?empcode=" . $row['EmpCode'] . "' class='btn btn-sm btn-secondary me-1'><i class='fas fa-edit'></i></a>
                                     <button type='button' class='btn btn-sm btn-danger delete-btn' data-id='" . $row['EmpCode'] . "'><i class='fas fa-trash'></i></button>
                                   </td>";
                             echo "<td><center><img src='" . htmlspecialchars($photoPath) . "' class='profile-img' alt='Profile'></center></td>";
