@@ -58,10 +58,7 @@
                         <a href="../view/StaffProfile/index.php" target="content">Staff Profile</a>
                     </li>
                     <li>
-                        <a href="../Cart/index.php" target="content">News Homepage</a>
-                    </li>
-                    <li>
-                        <a href="../Cart/index.php" target="content">News Details</a>
+                        <a href="../Cart/index.php" target="content">Career History</a>
                     </li>
                 </ul>
             </li>
@@ -88,13 +85,13 @@
                 </a>
                 <ul class="collapse list-unstyled" id="Leave">
                     <li>
-                        <a href="../Cart/index.php" target="content">News Category</a>
+                        <a href="../view/LeaveBalance/index.php" target="content">Leave Balance</a>
                     </li>
                     <li>
-                        <a href="../Cart/index.php" target="content">News Homepage</a>
+                        <a href="../Cart/index.php" target="content">Leave Request</a>
                     </li>
                     <li>
-                        <a href="../Cart/index.php" target="content">News Details</a>
+                        <a href="../Cart/index.php" target="content">Leave Approval</a>
                     </li>
                 </ul>
             </li>
