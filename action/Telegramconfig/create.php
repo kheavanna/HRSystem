@@ -10,10 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bind_param("ssi", $token, $chat_id, $status);
 
     if ($stmt->execute()) {
-        echo json_encode(["status" => "success", "message" => "Config added", "id" => $stmt->insert_id]);
+        echo json_encode(["status" => "success", "message" => "Config created", "id" => $stmt->insert_id]);
     } else {
         http_response_code(500);
-        echo "Error: " . $stmt->error;
+        echo json_encode(["status" => "error", "message" => $stmt->error]);
     }
 
     $stmt->close();
